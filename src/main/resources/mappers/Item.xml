@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.ItemDAO">
+
+    <resultMap id="itemMap" type="domain.Item">
+        <id property="itemID" column="itemid"/>
+        <result property="listPrice" column="listprice"/>
+        <result property="unitCost" column="unitcost"/>
+        <result property="productID" column="productid"/>
+        <result property="SupplierId" column="Supplier"/>
+        <result property="status" column="status"/>
+        <result property="attribute1" column="attr1"/>
+        <result property="attribute2" column="attr2"/>
+        <result property="attribute3" column="attr3"/>
+        <result property="attribute4" column="attr4"/>
+        <result property="attribute5" column="attr5"/>
+    </resultMap>
+
+    <select id="getItemListByProduct"  resultMap="itemMap" parameterType="String">
+        SELECT itemid,listprice,unitcost,supplier,productid,status,attr1,attr2,attr3,attr4,attr5
+        FROM item
+        WHERE item.productid = #{productID}
+    </select>
+
+    <select id="getItem"  resultMap="itemMap" parameterType="String">
+        SELECT itemid,listprice,unitcost,supplier,productid,status,attr1,attr2,attr3,attr4,attr5
+        FROM item
+        WHERE itemid = #{itemID}
+    </select>
+
+    <select id="getInventoryQuantity" resultType="int" parameterType="String">
+        SELECT qty
+        FROM inventory
+        WHERE itemid = #{itemID}
+    </select>
+
+    <update id="updateInventoryQuantity" parameterType="String">
+        UPDATE inventory
+        SET qty = qty - #{increment}
+        WHERE itemid = #{itemID}
+    </update>
+
+</mapper>

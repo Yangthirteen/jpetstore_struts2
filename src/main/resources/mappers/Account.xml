@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.AccountDAO">
+
+    <resultMap id="accountMap" type="domain.Account">
+        <id property="username" column="userid"/>
+        <result property="email" column="email"/>
+        <result property="firstName" column="firstname"/>
+        <result property="lastName" column="lastname"/>
+        <result property="status" column="status"/>
+        <result property="address1" column="addr1"/>
+        <result property="address2" column="addr2"/>
+        <result property="city" column="city"/>
+        <result property="state" column="state"/>
+        <result property="zip" column="zip"/>
+        <result property="country" column="country"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+
+    <select id="getAccountByUsername"  resultMap="accountMap" parameterType="String">
+        SELECT userid,email,firstname,lastname,status,addr1,addr2,city,state,zip,country,phone
+        FROM account, signon
+        WHERE account.userid = #{username}
+        AND signon.username = #{username}
+
+    </select>
+
+    <select id="getAccountByUsernameAndPassword"  resultMap="accountMap" parameterType="domain.Account">
+        SELECT userid,email,firstname,lastname,status,addr1,addr2,city,state,zip,country,phone
+        FROM account, signon
+        WHERE account.userid = #{username}
+        AND signon.password = #{password}
+        AND signon.username = #{username}
+
+    </select>
+
+    <insert id="insertAccount" parameterType="domain.Account">
+        INSERT INTO account(userid ,email,firstname,lastname,status,addr1,addr2,city,state,zip,country,phone)
+        VALUES(#{username},#{email},#{firstName},#{lastName},#{status},#{address1},#{address2},#{city},#{state},#{zip},#{country},#{phone})
+    </insert>
+
+    <insert id="insertProfile" parameterType="domain.Account">
+        INSERT INTO profile(langpref, favcategory, userid)
+        VALUES (#{languagePreference},#{favouriteCategoryId},#{username})
+    </insert>
+
+    <insert id="insertSignon" parameterType="domain.Account">
+        INSERT INTO signon(username,password)
+        VALUES(#{username},#{password})
+    </insert>
+
+    <update id="updateAccount" parameterType="domain.Account">
+        UPDATE account
+        SET email = #{email},firstname = #{firstName},lastname = #{lastName},status = #{status},
+            addr1 = #{address1},addr2 = #{address2},city = #{city},state = #{state},zip = #{zip},
+            country = #{country},phone = #{phone}
+        WHERE userid = #{username}
+    </update>
+
+    <update id="updateProfile" parameterType="domain.Account">
+        UPDATE profile
+        SET langpref = #{languagePreference} ,favcategory = #{favouriteCategoryId},mylistopt = #{listOption},banneropt = #{bannerOption}
+        WHERE userid = #{username}
+    </update>
+
+    <update id="updateSignon" parameterType="domain.Account">
+        UPDATE profile
+        SET password = #{password}
+        WHERE userid = #{username}
+    </update>
+
+</mapper>

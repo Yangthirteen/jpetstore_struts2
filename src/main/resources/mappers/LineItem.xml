@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.LineItemDAO">
+
+    <resultMap id="lineItemMap" type="domain.LineItem">
+        <id property="orderID" column="orderid"/>
+        <result property="lineNumber" column="linenum"/>
+        <result property="itemID" column="itemid"/>
+        <result property="quantity" column="quantity"/>
+        <result property="unitPrice" column="unitprice"/>
+    </resultMap>
+
+    <select id="getLineItemsByOrderId" resultMap="lineItemMap" parameterType="int">
+        SELECT orderid, linenum AS lineNumber, itemid, quantity, unitprice
+        FROM lineitem
+        WHERE orderid = #{orderID}
+    </select>
+
+    <insert id="insertLineItem" parameterType="domain.LineItem">
+        INSERT INTO lineitem (orderid, linenum, itemid, quantity, unitprice)
+        VALUES (#{orderID}, #{lineNumber}, #{itemID}, #{quantity}, #{unitPrice})
+    </insert>
+
+</mapper>

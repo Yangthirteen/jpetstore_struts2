@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <!--指定解码方式是UTF-8-->
+    <constant name="struts.custom.i18n.resources" value="message"/>
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+
+    <!--进入主页的路由-->
+    <package name="MainPage" extends="struts-default">
+
+        <interceptors>
+            <interceptor name="myInter" class="web.CheckInterceptor"></interceptor>
+        </interceptors>
+        <action name="main" class="web.MainAction" method="enterMainPage">
+            <result name="enter">/WEB-INF/jsp/catalog/Main.jsp</result>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="myInter"></interceptor-ref>
+        </action>
+        <action name="searchProducts" class="web.SearchProductsAction" method="searchProducts">
+            <result name="true">/WEB-INF/jsp/catalog/SearchProducts.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="CartPage" extends="struts-default">
+
+        <action name="addItemToCart" class="web.AddItemToCartAction" method="addItemToCart">
+            <result name="true">/WEB-INF/jsp/cart/Cart.jsp</result>
+        </action>
+        <action name="removeViewCart" class="web.RemoveViewCartAction" method="removeViewCart">
+            <result name="true">/WEB-INF/jsp/cart/Cart.jsp</result>
+            <result name="false">/WEB-INF/jsp/common/Error.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="ViewPage" extends="struts-default">
+
+        <action name="viewSignon" class="web.ViewSignonAction" method="viewSignon">
+            <result name="true">/WEB-INF/jsp/account/SignonForm.jsp</result>
+        </action>
+        <action name="viewRegister" class="web.ViewRegisterAction" method="viewRegister">
+            <result name="true">/WEB-INF/jsp/account/NewAccountForm.jsp</result>
+        </action>
+        <action name="viewProduct" class="web.ViewProductAction" method="viewProduct">
+            <result name="true">/WEB-INF/jsp/catalog/Product.jsp</result>
+        </action>
+        <action name="viewOrder" class="web.ViewOrderAction" method="viewOrder">
+            <result name="true">/WEB-INF/jsp/order/ViewOrder.jsp</result>
+        </action>
+        <action name="viewOrderForm" class="web.ViewOrderFormAction" method="viewOrderForm">
+            <result name="true">/WEB-INF/jsp/order/ViewOrder.jsp</result>
+        </action>
+        <action name="viewListOrders" class="web.ViewListOrdersAction" method="viewListOrders">
+            <result name="true">/WEB-INF/jsp/order/ListOrders.jsp</result>
+        </action>
+        <action name="viewItem" class="web.ViewItemAction" method="viewItem">
+            <result name="true">/WEB-INF/jsp/catalog/Item.jsp</result>
+        </action>
+        <action name="viewCategory" class="web.ViewCategoryAction" method="viewCategory">
+            <result name="true">/WEB-INF/jsp/catalog/Category.jsp</result>
+        </action>
+        <action name="viewCart" class="web.ViewCartAction" method="viewCart">
+            <result name="true">/WEB-INF/jsp/cart/Cart.jsp</result>
+        </action>
+        <action name="viewAccount" class="web.ViewAccountAction" method="viewAccount">
+            <result name="true">/WEB-INF/jsp/account/EditAccountForm.jsp</result>
+        </action>
+        <action name="help" class="web.ViewHelpAction" method="help">
+            <result name="true">../help.html</result>
+        </action>
+
+    </package>
+
+    <package name="AccountPage" extends="struts-default">
+
+        <action name="addNewAccount" class="web.AddNewAccountAction" method="addNewAccount">
+            <result name="true">/WEB-INF/jsp/account/NewAccountForm.jsp</result>
+
+            <interceptor-ref name="tokenSession">
+                <!-- token对哪些方法起作用 -->
+                <param name="includeMethods">NewAccountForm</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+
+        </action>
+        <action name="saveAccount" class="web.SaveAccountAction" method="saveAccount">
+            <result name="true">/WEB-INF/jsp/account/EditAccountForm.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="OrderPage" extends="struts-default">
+
+        <action name="addNewOrder" class="web.AddNewOrderAction" method="addNewOrder">
+            <result name="true">/WEB-INF/jsp/order/NewOrderForm.jsp</result>
+        </action>
+        <action name="confirmNewOrder" class="web.ConfirmNewOrderAction" method="confirmNewOrder">
+            <result name="confirm">/WEB-INF/jsp/order/ConfirmOrder.jsp</result>
+            <result name="shippingForm">/WEB-INF/jsp/order/ShippingForm.jsp</result>
+        </action>
+        <action name="shippingForm" class="web.ShippingFormAction" method="shippingForm">
+            <result name="true">/WEB-INF/jsp/order/ConfirmOrder.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="SignPage" extends="struts-default">
+
+        <action name="signon" class="web.SignonAction" method="signon">
+            <result name="Main">/WEB-INF/jsp/catalog/Main.jsp</result>
+            <result name="SignonForm">/WEB-INF/jsp/account/SignonForm.jsp</result>
+            <result name="input">WEB-INF/jsp/account/SignonForm.jsp</result>
+        </action>
+        <action name="signoff" class="web.SignoffAction" method="signoff">
+            <result name="true">/WEB-INF/jsp/catalog/Main.jsp</result>
+        </action>
+
+        <action name="createImageAction" class="web.CreateImageAction">
+            <result name="success" type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+
+    </package>
+
+</struts>

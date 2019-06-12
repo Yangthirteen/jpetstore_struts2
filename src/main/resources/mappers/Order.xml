@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.OrderDAO">
+
+    <resultMap id="orderMap" type="domain.Order">
+        <id property="orderID" column="orderid"/>
+        <result property="username" column="userid"/>
+        <result property="orderDate" column="orderdate"/>
+        <result property="shipAddress1" column="shipaddr1"/>
+        <result property="shipAddress2" column="shipaddr2"/>
+        <result property="shipCity" column="shipcity"/>
+        <result property="shipState" column="shipstate"/>
+        <result property="shipZip" column="shipzip"/>
+        <result property="shipCountry" column="shipcountry"/>
+        <result property="billAddress1" column="billaddr1"/>
+        <result property="billAddress2" column="billaddr2"/>
+        <result property="billCity" column="billcity"/>
+        <result property="billState" column="billstate"/>
+        <result property="billZip" column="billzip"/>
+        <result property="billCountry" column="billcountry"/>
+        <result property="courier" column="courier"/>
+        <result property="totalPrice" column="totalprice"/>
+        <result property="billToFirstName" column="billtofirstname"/>
+        <result property="billToLastName" column="billtolastname"/>
+        <result property="shipToFirstName" column="shiptofirstname"/>
+        <result property="shipToLastName" column="shiptolastname"/>
+        <result property="creditCard" column="creditcard"/>
+        <result property="cardType" column="cardtype"/>
+        <result property="locale" column="locale"/>
+    </resultMap>
+
+    <select id="getOrdersByUsername"  resultMap="orderMap" parameterType="String">
+        SELECT orders.orderid, userid, orderdate, shipaddr1, shipaddr2, shipcity, shipstate, shipzip, shipcountry,
+               billaddr1, billaddr2, billcity, billstate, billzip, billcountry, courier, totalprice,billtofirstname, billtolastname,
+               shiptofirstname, shiptolastname, creditcard, cardtype, locale
+        FROM orders, orderstatus
+        WHERE userid = #{username}
+        AND orders.orderid = orderstatus.orderid
+        ORDER BY orderdate
+    </select>
+
+    <select id="getOrder"  resultMap="orderMap" parameterType="int">
+        SELECT orderid, userid, orderdate, shipaddr1, shipaddr2, shipcity, shipstate, shipzip, shipcountry,
+               billaddr1, billaddr2, billcity, billstate, billzip, billcountry, courier, totalprice,billtofirstname, billtolastname,
+               shiptofirstname, shiptolastname, creditcard, cardtype, locale
+        FROM orders, orderstatus
+        WHERE userid = #{orderID}
+        AND orders.orderid = orderstatus.orderid
+    </select>
+
+    <insert id="insertOrder" parameterType="domain.Order">
+        INSERT INTO orders(orderid, userid, orderdate, shipaddr1, shipaddr2, shipcity, shipstate, shipzip, shipcountry,
+                           billaddr1, billaddr2, billcity, billstate, billzip, billcountry, courier, totalprice,billtofirstname,
+                           billtolastname, shiptofirstname, shiptolastname, creditcard, cardtype, locale)
+        VALUES(#{orderID},#{username},#{orderDate},#{shipAddress1},#{shipAddress2},#{shipCity},#{shipState},#{shipZip},
+               #{shipCountry},#{billAddress1},#{billAddress2},#{billCity},#{billState},#{billZip},#{billCountry},
+               #{courier},#{totalPrice},#{billToFirstName},#{billToLastName},#{shipToFirstName},#{shipToLastName},
+               #{creditCard},#{cardType},#{locale})
+    </insert>
+
+    <insert id="insertOrderStatus" parameterType="domain.Order">
+        INSERT INTO orderstatus(orderid, linenum, timestamp, status)
+        VALUES(#{orderID},#{lineNumber},#{timeStamp},#{status})
+    </insert>
+
+</mapper>

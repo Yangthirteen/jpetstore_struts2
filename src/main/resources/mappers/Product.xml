@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="persistence.ProductDAO">
+
+    <resultMap id="productMap" type="domain.Product">
+        <id property="productID" column="productid"/>
+        <result property="category" column="category"/>
+        <result property="name" column="name"/>
+        <result property="description" column="descn"/>
+    </resultMap>
+
+    <select id="getProductListByCategory"  resultMap="productMap" parameterType="String">
+        select productid, category, name, descn
+        from product
+        where category = #{categoryID}
+    </select>
+
+    <select id="getProduct"  resultMap="productMap" parameterType="String">
+        select productid, category, name, descn
+        from product
+        where productid = #{productID}
+    </select>
+
+    <select id="searchProductList"  resultMap="productMap" parameterType="String">
+        select productid, category, name, descn, category as categoryID
+        from product
+        where lower (name) like #{keywords}
+    </select>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost/petstore?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="1785054901hong"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mappers/Account.xml"/>
+        <mapper resource="mappers/Category.xml"/>
+        <mapper resource="mappers/Item.xml"/>
+        <mapper resource="mappers/LineItem.xml"/>
+        <mapper resource="mappers/Order.xml"/>
+        <mapper resource="mappers/Product.xml"/>
+        <mapper resource="mappers/Sequence.xml"/>
+    </mappers>
+
+</configuration>
