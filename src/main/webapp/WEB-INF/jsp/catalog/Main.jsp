@@ -17,15 +17,15 @@
 <div id="Main">
     <div id="Sidebar">
         <div id="SidebarContent">
-            <a href="viewCategory?categoryID=FISH"><img src="../../../images/fish_icon.gif" /></a>
+            <a href="viewCategory?categoryID=FISH"><img src="images/fish_icon.gif" /></a>
             <br/> <s:text name="fishMessage" /> <br/>
-            <a href="viewCategory?categoryID=DOGS"><img src="../../../images/dogs_icon.gif" /></a>
+            <a href="viewCategory?categoryID=DOGS"><img src="images/dogs_icon.gif" /></a>
             <br /> <s:text name="dogMessage" /> <br />
-            <a href="viewCategory?categoryID=CATS"><img src="../../../images/cats_icon.gif" /></a>
+            <a href="viewCategory?categoryID=CATS"><img src="images/cats_icon.gif" /></a>
             <br /> <s:text name="catMessage" /> <br />
-            <a href="viewCategory?categoryID=REPTILES"><img src="../../../images/reptiles_icon.gif" /></a>
+            <a href="viewCategory?categoryID=REPTILES"><img src="images/reptiles_icon.gif" /></a>
             <br /> <s:text name="reptileMessage" /> <br />
-            <a href="viewCategory?categoryID=BIRDS"><img src="../../../images/birds_icon.gif" /></a>
+            <a href="viewCategory?categoryID=BIRDS"><img src="images/birds_icon.gif" /></a>
             <br /> <s:text name="birdMessage" />
         </div>
     </div>

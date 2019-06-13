@@ -42,23 +42,23 @@
 
     <div id="Logo">
         <div id="LogoContent">
-            <a href="main"><img src="../../../images/logo-topbar.gif" /></a>
+            <a href="main"><img src="images/logo-topbar.gif" /></a>
         </div>
     </div>
 
     <div id="Menu">
         <div id="MenuContent">
-            <a href="viewCart"><img align="middle" name="img_cart" src="../../../images/cart.gif" /></a>
-            <img align="middle" src="../../../images/separator.gif" />
+            <a href="viewCart"><img align="middle" name="img_cart" src="images/cart.gif" /></a>
+            <img align="middle" src="images/separator.gif" />
             <c:if test="${account==null}">
                 <a href="viewSignon"><s:text name="sign" /></a>
-                <img align="middle" src="../../../images/separator.gif" />
+                <img align="middle" src="images/separator.gif" />
             </c:if>
             <c:if test="${account!=null}">
                 <a href="signoff">Sign out</a>
-                <img align="middle" src="../../../images/separator.gif" />
+                <img align="middle" src="images/separator.gif" />
                 <a href="viewAccount?username=${account.username}"><s:text name="myAccount" /></a>
-                <img align="middle" src="../../../images/separator.gif" />
+                <img align="middle" src="images/separator.gif" />
             </c:if>
             <a href="help">?</a>
         </div>

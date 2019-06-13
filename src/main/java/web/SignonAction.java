@@ -78,7 +78,7 @@ public class SignonAction extends ActionSupport {
 
         if(!checkCode.equals(checkCode2))
         {
-            this.addFieldError("Error","你是猪吗？验证码错了");
+            this.addFieldError("Error","验证码错误，请重输");
         }
     }
 
